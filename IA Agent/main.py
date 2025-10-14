@@ -1,9 +1,7 @@
 # pip install python-dotenv langchain langchain-openai langchain-community langchain-chroma chromadb openai pypdf
 from langchain_chroma.vectorstores import Chroma
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_openai import OpenAIEmbeddings
+from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 from langchain.prompts import ChatPromptTemplate
-from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -38,7 +36,7 @@ def perguntar():
     prompt = ChatPromptTemplate.from_template(prompt_template)
     prompt = prompt.invoke({"pergunta": pergunta, "base_conhecimento": base_conhecimento})
 
-    modelo = ChatOpenAI()
+    modelo = ChatGoogleGenerativeAI(model="gemini-pro")
     texto_resposta = modelo.invoke(prompt).content
     print("Resposta da IA:", texto_resposta)
 
