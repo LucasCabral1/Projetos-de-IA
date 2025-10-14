@@ -1,5 +1,6 @@
 # pip install python-dotenv langchain langchain-openai langchain-community langchain-chroma chromadb openai pypdf
 from langchain_chroma.vectorstores import Chroma
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_openai import OpenAIEmbeddings
 from langchain.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
@@ -20,7 +21,7 @@ com base nessas informações abaixo:
 def perguntar():
     pergunta = input("Escreva sua pergunta: ")
 
-    funcao_embedding = OpenAIEmbeddings()
+    funcao_embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     db = Chroma(persist_directory=CAMINHO_DB, embedding_function=funcao_embedding)
 
     resultados = db.similarity_search_with_relevance_scores(pergunta, k=4)
